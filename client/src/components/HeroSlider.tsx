@@ -102,16 +102,28 @@ export function HeroSlider() {
                 }`}
               >
                 {src ? (
-                  <img
-                    src={src}
-                    alt={item.headline || 'Team BlackSwan abaya'}
-                    className={`h-full w-full object-cover object-[center_22%] ${
-                      isActive ? 'animate-ken-burns' : ''
-                    }`}
-                    loading={itemIndex === 0 ? 'eager' : 'lazy'}
-                  />
+                  <>
+                    {/* Desktop: the panel is much wider than the portrait source, so a blurred
+                        copy of the same photo fills the frame and the uncropped portrait sits
+                        on top — no more headless mid-body crop. */}
+                    <img
+                      src={src}
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute inset-0 hidden h-full w-full scale-125 object-cover object-[center_22%] blur-2xl brightness-[0.45] lg:block"
+                      loading={itemIndex === 0 ? 'eager' : 'lazy'}
+                    />
+                    <img
+                      src={src}
+                      alt={item.headline || 'Team BlackSwan abaya'}
+                      className={`relative h-full w-full object-cover object-[center_22%] lg:object-contain lg:object-center ${
+                        isActive ? 'animate-ken-burns' : ''
+                      }`}
+                      loading={itemIndex === 0 ? 'eager' : 'lazy'}
+                    />
+                  </>
                 ) : null}
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/25 to-transparent lg:bg-gradient-to-r lg:from-obsidian/95 lg:via-obsidian/10 lg:to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/20 to-transparent" />
               </div>
             );
           })}
